@@ -75,35 +75,12 @@ public class CheckSshProcesses extends ComputerListener {
             Computer c = node.toComputer();
             if(c==null)
                 continue;
-            if(c.isOnline()){
                 String host=null;
-                try {
-                    host = c.getEnvironment().get("HOSTNAME");
-                } catch (IOException ex) {
-                    Logger.getLogger(CheckSshProcesses.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(CheckSshProcesses.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                    host = hostNames.get(c.getName());;
                 if(host!=null){
                     actualized.put(c.getName(), host);
-                }
-            }
-                if(c.getChannel()==null){
-                    SshProcessManager manager = SshProcessManager.getManager();
-                    String host = hostNames.get(c.getName());
-                    if(host!=null){
-                        try {
-                            for (OSProcess process : manager.getSshProcessForSlave(host)) {
-                                manager.killSshProcess(process);
-                            }
-                        } catch (IOException ex) {
-                            Logger.getLogger(CheckSshProcesses.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(CheckSshProcesses.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                }
-            }
+                }                    
+        }
         hostNames = actualized;
     }
        
