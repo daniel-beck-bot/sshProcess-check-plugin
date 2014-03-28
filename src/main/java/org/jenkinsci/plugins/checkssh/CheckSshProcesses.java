@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,7 +23,7 @@ import java.util.logging.Logger;
 @Extension
 public class CheckSshProcesses extends ComputerListener {
 
-    private Map<String, String> hostNames = new TreeMap<String, String>();
+    private Map<String, String> hostNames = new ConcurrentHashMap<String, String>();
 
     @Override
     public void preLaunch(Computer c, TaskListener taskListener) throws IOException, InterruptedException {
